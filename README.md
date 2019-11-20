@@ -7,7 +7,7 @@
     - jupyter remote server tunneling
     - jupyter tips and tricks 
 
-`https://github.com/tbengtsen/setup_for_programs.wiki.git`
+[Wiki setup](https://github.com/tbengtsen/setup_for_programs.wiki.git)
 
 
 
