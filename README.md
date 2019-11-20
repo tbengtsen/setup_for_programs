@@ -6,6 +6,7 @@
     - how to setup the perfect mac: 
     - jupyter remote server tunneling
     - jupyter tips and tricks 
+    - [Easy ssh](https://github.com/tbengtsen/setup_for_programs/wiki/Easy-ssh)
 
 [Wiki setup](https://github.com/tbengtsen/setup_for_programs/wiki)
 
