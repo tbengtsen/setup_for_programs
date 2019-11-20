@@ -1,0 +1,18 @@
+#### JUPYTER LAB TOC #####
+jupyter labextension install @jupyterlab/toc
+
+
+
+
+#### NGL-VIEW for protein viewer  #### 
+# do these commands exactly in conda env
+# then shutdown and restart jupyter lab 
+
+conda install jupyterlab -c conda-forge -y
+conda install -c conda-forge nodejs
+jupyter-labextension install @jupyter-widgets/jupyterlab-manager
+jupyter-labextension install  nglview-js-widgets@2.6.9
+pip install nglview==2.6.9
+jupyter nbextension enable --py nglview
+
+jupyter nbextension enable --py widgetsnbextension

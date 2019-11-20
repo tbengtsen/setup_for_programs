@@ -1,0 +1,11 @@
+{  "shortcuts": [
+{
+    "command": "notebook:hide-cell-code",
+    "keys": [
+      "Ctrl Shift H"
+    ],
+    "selector": ".jp-Notebook:focus"
+  }
+]
+
+}

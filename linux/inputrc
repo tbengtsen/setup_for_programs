@@ -1,0 +1,29 @@
+set bell-style visible
+set horizontal-scroll-mode off 
+
+set meta-flag on
+set convert-meta on
+set output-meta on
+set input-meta on
+
+#case insensitive when tapping
+set completion-ignore-case On
+
+"\e[3~":delete-char
+"\C-[[D":        backward-char
+"\C-[[C":        forward-char
+"\e[1;3D":backward-word
+"\e[1;3C":forward-word
+"\e[1;9D":backward-word
+"\e[1;9C":forward-word
+"\M-\C-[[D":        backward-word
+"\M-\C-[[C":        forward-word
+"\M-[A":        history-search-backward
+"\M-[B":        history-search-forward
+"\C-y":
+
+# use ctrl-b to delete until last slash
+"\C-b": unix-filename-rubout
+
+# Only press tab once
+set show-all-if-ambiguous on

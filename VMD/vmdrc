@@ -1,0 +1,193 @@
+############################################################################
+#cr                                                                       
+#cr            (C) Copyright 1995-2007 The Board of Trustees of the            
+#cr                        University of Illinois                         
+#cr                         All Rights Reserved                           
+#cr                                                                       
+############################################################################
+
+############################################################################
+# RCS INFORMATION:
+#
+#       $RCSfile: .vmdrc,v $
+#       $Author: johns $        $Locker:  $                $State: Exp $
+#       $Revision: 1.9 $      $Date: 2007/01/12 20:12:44 $
+#
+############################################################################
+# DESCRIPTION:
+#
+# VMD startup script.  The commands here are executed as soon as VMD starts up
+############################################################################
+
+# turn on lights 0 and 1
+light 0 on
+light 1 on
+light 2 off
+light 3 off
+
+# position the stage and axes
+#axes location lowerleft
+axes location off
+stage location off
+
+# position and turn on menus
+menu main     move 5   225
+menu display  move 395 30
+menu graphics move 395 500
+menu color    move 125 225
+menu files    move 125 325
+menu labels   move 125 525
+menu render   move 125 525
+
+menu main      on
+#menu display  on
+menu graphics on
+#menu color    on
+#menu labels   on
+#menu render   on
+#menu files    on
+
+# start the scene a-rockin'
+# rock y by 1
+
+# User's default values for newly loaded molecules/reps, etc
+#  mol default color {colorID 5}
+#  mol default style {NewCartoon 0.300000 6.000000 4.100000 0}
+#  mol default selection {name CA}
+#  mol default material {Transparent}
+
+#remove transperancy when molecule is far away
+display depthcue off
+
+
+
+#### setup by http://www.life.umd.edu/biology/sukharevlab/download/vmd_scripts/vmd.rc
+# extentions by Tone Bengtsen. 
+
+ 
+user add key a {
+#Alignment of top traj to frame 0
+
+set nr_frames [molinfo top get numframes]
+set frame_zero [atomselect top "protein and backbone" frame 0]
+
+for {set i 1} {$i< $nr_frames} {incr i} {
+    set run [atomselect top "protein and backbone" frame $i]
+    set trans_matrix [measure fit $run $frame_zero]
+    set whole_run [atomselect top "all" frame $i]
+    $whole_run move $trans_matrix
+
+	}
+}
+
+
+
+
+# ROTATION: #
+
+user add key f {
+#Flips  -  Rotates scene 180 degrees aroynd Y (vertical on screen) axis
+        rotate y by 180
+}
+
+
+user add key q {
+#Rotates scene to make a view from X axis, z is up
+        mouse stoprotation
+        rotate x to -90
+        rotate y by -90
+}
+
+
+user add key w {
+#Rotates scene to make a view from Y axis, z is up
+        mouse stoprotation
+        rotate z to 180
+        rotate x by -90
+ }
+
+user add key e {
+#Rotates scene to make a view from Z axis, x is to the left
+        mouse stoprotation
+        rotate z to 180
+}
+
+
+#user add key m {
+#Moves geometry center of the molecule to the origin
+#        [atomselect top all] moveby [vecscale -1.0 [measure center [atomselect top all]]]
+#}
+
+### Graphical Representations
+
+user add key i {
+#Apply preselected graphical representation
+        mol delrep 0 top
+        mol representation Trace 0.500000 6.000000
+        mol color ResType
+        mol color Index
+        mol selection {protein}
+        mol material Opaque
+        mol addrep top
+}
+
+user add key l {
+#Apply preselected graphical representation
+        mol delrep 0 top
+        mol representation Lines
+        mol color Type
+        #mol color Index
+        mol selection {protein}
+        mol material Opaque
+        mol addrep top
+}
+
+
+user add key n {
+#Apply preselected graphical representation
+        mol delrep 0 top
+        mol representation NewCartoon
+        #mol color Index
+        mol selection {protein}
+        mol material Opaque
+        mol addrep top
+}
+
+user add key m {
+#if martini, sets representation to backbone and dynamic bonds
+        mol delrep 0 top
+        mol representation DynamicBonds 4.600000 0.300000 6.000000
+        mol selection {name BB}
+        mol material Opaque
+        mol  addrep top
+        mol representation VDW
+        mol selection {name PO4}
+        mol addrep top
+}
+
+
+#set BACKGROUND
+
+user add key v {
+ #sets white background and exp2 depth cue
+        color Display {Background} white
+        display depthcue   on
+        display cuestart   0.500000
+        display cueend     10.000000
+        display cuedensity 0.400000
+        display cuemode    Exp2
+ }
+
+user add key b {
+ #sets white background and exp2 depth cue
+        color Display {Background} black
+        display depthcue   off
+}
+
+user add key {;} {
+ #Calls tkcon console window to the top (after it was once started from the VMD menu)
+        menu tkcon on
+        tkcon show
+}
+
+

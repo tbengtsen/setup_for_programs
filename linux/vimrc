@@ -1,0 +1,96 @@
+
+
+"=== plugin manager calling ===
+
+call plug#begin()
+
+" Syntax checker
+" Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
+let g:ale_sign_warning = '▴'
+let g:ale_sign_error = '❌'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+
+" Theme Plug
+" Plug 'flazz/vim-colorschemes'
+Plug 'nanotech/jellybeans.vim'
+Plug 'tomasiser/vim-code-dark'
+
+
+call plug#end()
+" =============
+
+
+
+
+"INTERFACE
+"syntax on
+set number					"show line number
+filetype indent plugin on	"automate indentation based on language
+set background=dark
+set title					"change the terminal's title
+
+set t_Co=256
+set t_ut=
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+try
+" colorscheme jellybeans
+colorscheme codedark
+catch
+set background=dark
+endtry
+syntax on
+
+
+"set encoding
+scriptencoding utf-8
+set encoding=utf-8
+
+" Display tabs and trailing spaces visually
+set list listchars=tab:\ \ ,trail:·
+
+"PEP8 STANDARD PYTHON CODE
+
+set tabstop=4				"set tablenght 4 characters
+set shiftwidth=4			"number of spaces to use for autoindenting	
+set expandtab				"interpretate tabs \t as 4 spaces according to PEP8
+
+
+
+"SEARCHING OPTIONS
+
+set ignorecase				"make search not case sensitive
+set smartcase				"make search case sensitive if big letter in patter
+set incsearch				"show next match while entering word
+set hlsearch				"highlight search terms
+
+
+"PASTE OPTIONS
+set pastetoggle=<F2> 		"press f2 to paste large amount of text without indenting
+
+"HEADER OPTIONS
+
+"add header to all new create file with .py extension
+"check http://vimdoc.sourceforge.net/htmldoc/autocmd.html#skeleton
+autocmd BufNewFile *.py 0r ~/vim_header_python.py
+autocmd bufnewfile *.py exe "1," . 10 . "g/Creation Date: /s/Creation Date: .*/Creation Date: " . strftime("%d-%m-%Y")
+autocmd Bufwritepre,filewritepre *.py exe "1," . 10 . "g/Last Modified: /s/Last Modified: .*/Last Modified: " . strftime("%d-%m-%Y")
+
+"add header to all new created bash files
+autocmd BufNewFile *.sh 0r ~/vim_header_bash.sh
+autocmd bufnewfile *.sh exe "1," . 10 . "g/Creation Date: /s/Creation Date: .*/Creation Date: " . strftime("%d-%m-%Y")
+autocmd Bufwritepre,filewritepre *.sh exe "1," . 10 . "g/Last Modified : /s/Last Modified : .*/Last Modified : " . strftime("%d-%m-%Y")
+
+
+noremap   <silent> cc      :s,^\(\s*\)[^# \t]\@=,\1# ,e<CR>:nohls<CR>zvj
+noremap   <silent> uc      :s,^\(\s*\)# \s\@!,\1,e<CR>:nohls<CR>zvj
+
+"ADD PLUMED plugin
+"enable by :set syntax=plumed
+let &runtimepath.=','.$PLUMED_VIMPATH
+
+
+
